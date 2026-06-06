@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mangás Coloridos - Capítulos Grátis</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+:root {
+    --bg-principal: #121214;
+    --bg-card: #1e1e24;
+    --cor-primaria: #ff4757;
+    --cor-secundaria: #ffa502;
+    --texto-claro: #ffffff;
+    --texto-escuro: #a4b0be;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    background-color:var(--bg-principal);
+    color:var(--texto-claro);
+    padding-bottom:30px;
+}
+
+header{
+    background-color:var(--bg-card);
+    padding:15px 20px;
+    position:sticky;
+    top:0;
+    z-index:100;
+    box-shadow:0 4px 10px rgba(0,0,0,0.3);
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:1.4rem;
+    font-weight:bold;
+    color:white;
+    text-decoration:none;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.logo span{
+    color:var(--cor-primaria);
+}
+
+.banner{
+    margin:20px;
+    padding:20px;
+    border-radius:12px;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(255,71,87,0.2),
+    rgba(0,0,0,0.8)
+    ),
+    url('https://picsum.photos/800/400')
+    no-repeat center/cover;
+
+    height:150px;
+
+    display:flex;
+    align-items:flex-end;
+}
+
+.container{
+    padding:0 20px;
+}
+
+.titulo-sessao{
+    font-size:1.2rem;
+    margin-bottom:15px;
+
+    border-left:4px solid var(--cor-primaria);
+    padding-left:8px;
+}
+
+.manga-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.manga-card{
+    background:var(--bg-card);
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.capa-container{
+    position:relative;
+    width:100%;
+    padding-top:140%;
+}
+
+.capa-container img{
+    position:absolute;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.badge-color{
+    position:absolute;
+    top:8px;
+    left:8px;
+
+    background:var(--cor-secundaria);
+
+    color:black;
+    font-size:0.7rem;
+    font-weight:bold;
+
+    padding:3px 6px;
+    border-radius:4px;
+}
+
+.manga-info{
+    padding:10px;
+}
+
+.manga-titulo{
+    font-size:0.95rem;
+    margin-bottom:5px;
+}
+
+.manga-capitulo{
+    color:var(--cor-primaria);
+    margin-bottom:10px;
+}
+
+.btn-baixar{
+    width:100%;
+    border:none;
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    background:var(--cor-primaria);
+    color:white;
+
+    padding:10px;
+    border-radius:6px;
+
+    font-weight:bold;
+}
+
+.btn-baixar:hover{
+    background:#ff6b81;
+}
+
+/* LEITOR PDF */
+
+.pdf-modal{
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:#111;
+
+    z-index:99999;
+
+    display:none;
+    flex-direction:column;
+}
+
+.pdf-topo{
+    background:#1e1e24;
+    padding:10px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.fechar-btn,
+.download-btn{
+
+    background:#ff4757;
+    color:white;
+
+    border:none;
+    padding:10px 14px;
+
+    border-radius:6px;
+
+    text-decoration:none;
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+#pdfFrame{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+@media(min-width:768px){
+
+    .manga-grid{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<a href="#" class="logo">
+<i class="fa-solid fa-book-open-reader"></i>
+
+Mangás <span>Coloridos</span>
+</a>
+
+</header>
+
+<section class="banner">
+<h2>Capítulos Diários em Alta Definição!</h2>
+</section>
+
+<main class="container">
+
+<h3 class="titulo-sessao">
+<i class="fa-solid fa-fire"></i>
+Últimas Atualizações
+</h3>
+
+<div class="manga-grid">
+
+<!-- CARD 1 -->
+
+<article class="manga-card">
+
+<div class="capa-container">
+
+<span class="badge-color">
+Colorido
+</span>
+
+<img
+src="https://i.postimg.cc/mD795tK0/91x-Uw-I2UEVL-AC-UF894-1000-QL80-FMwebp.webp">
+
+</div>
+
+<div class="manga-info">
+
+<h4 class="manga-titulo">
+Mangá Naruto Colorido
+</h4>
+
+<p class="manga-capitulo">
+Capítulo 01
+</p>
+
+<button
+onclick="abrirPDF('manganarutocolor001.pdf')"
+class="btn-baixar">
+
+<i class="fa-solid fa-book-open"></i>
+
+Baixar Capítulo 01
+
+</button>
+
+</div>
+</article>
+
+</div>
+
+</main>
+
+<!-- LEITOR PDF -->
+
+<div id="pdfModal" class="pdf-modal">
+
+<div class="pdf-topo">
+
+<button
+onclick="fecharPDF()"
+class="fechar-btn">
+
+Fechar
+
+</button>
+
+<a
+id="downloadPDF"
+class="download-btn"
+target="_blank">
+
+Baixar PDF
+
+</a>
+
+</div>
+
+<iframe id="pdfFrame"></iframe>
+
+</div>
+
+<script>
+
+function abrirPDF(pdf){
+
+document.getElementById("pdfModal")
+.style.display = "flex";
+
+document.getElementById("pdfFrame")
+.src = pdf;
+
+document.getElementById("downloadPDF")
+.href = pdf;
+
+}
+
+function fecharPDF(){
+
+document.getElementById("pdfModal")
+.style.display = "none";
+
+document.getElementById("pdfFrame")
+.src = "";
+
+}
+
+</script>
+
+</body>
+</html>
