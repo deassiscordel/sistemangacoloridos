@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mangás Coloridos</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#111;
+    color:white;
+}
+
+/* TOPO */
+
+header{
+    background:#ff2e63;
+    padding:18px;
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+/* GRID */
+
+.container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:15px;
+    padding:15px;
+}
+
+/* CARD */
+
+.card{
+    background:#1d1d1d;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 0 10px rgba(0,0,0,0.5);
+}
+
+.card img{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+}
+
+.info{
+    padding:12px;
+}
+
+.info h2{
+    margin-bottom:10px;
+    font-size:20px;
+}
+
+.btn{
+    width:100%;
+    border:none;
+    background:#ff2e63;
+    color:white;
+    padding:12px;
+    border-radius:8px;
+    font-weight:bold;
+    font-size:15px;
+}
+
+/* MODAL CAPÍTULOS */
+
+#chaptersModal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.9);
+    z-index:999;
+    overflow:auto;
+}
+
+.modal-content{
+    background:#1c1c1c;
+    margin:30px auto;
+    width:90%;
+    max-width:500px;
+    border-radius:12px;
+    padding:20px;
+}
+
+.modal-content h2{
+    margin-bottom:15px;
+    text-align:center;
+}
+
+.chapter-btn{
+    display:block;
+    width:100%;
+    background:#2a2a2a;
+    color:white;
+    text-decoration:none;
+    padding:14px;
+    margin-bottom:10px;
+    border-radius:8px;
+    border:none;
+    text-align:left;
+    font-size:15px;
+}
+
+.chapter-btn:hover{
+    background:#ff2e63;
+}
+
+/* BOTÃO FECHAR */
+
+.fechar{
+    width:100%;
+    background:red;
+    border:none;
+    color:white;
+    padding:12px;
+    border-radius:8px;
+    margin-top:10px;
+    font-weight:bold;
+    font-size:16px;
+}
+
+/* LEITOR PDF */
+
+#pdfViewerModal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:#000;
+    z-index:1000;
+}
+
+.topo-player{
+    background:#111;
+    padding:10px;
+}
+
+iframe{
+    width:100%;
+    height:92vh;
+    border:none;
+    background:white;
+}
+
+</style>
+
+</head>
+<body>
+
+<header>
+Mangás Coloridos
+</header>
+
+<div class="container">
+
+    <!-- NARUTO -->
+
+    <div class="card">
+
+        <img src="https://i.postimg.cc/N0LfZfjv/91Rpwag-B7u-L.jpg">
+
+        <div class="info">
+
+            <h2>Naruto</h2>
+
+            <button class="btn"
+            onclick="abrirCapitulos('naruto')">
+
+            Ver Capítulos
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ONE PIECE -->
+
+    <div class="card">
+
+        <img src="capas/onepiece.jpg">
+
+        <div class="info">
+
+            <h2>One Piece</h2>
+
+            <button class="btn"
+            onclick="abrirCapitulos('onepiece')">
+
+            Ver Capítulos
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- MODAL CAPÍTULOS -->
+
+<div id="chaptersModal">
+
+    <div class="modal-content">
+
+        <h2>Capítulos</h2>
+
+        <div id="chaptersList"></div>
+
+        <button class="fechar"
+        onclick="fecharCapitulos()">
+
+        Fechar
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- LEITOR PDF -->
+
+<div id="pdfViewerModal">
+
+    <div class="topo-player">
+
+        <button class="fechar"
+        onclick="fecharPDF()">
+
+        Fechar Leitor
+
+        </button>
+
+    </div>
+
+    <iframe id="pdfFrame"></iframe>
+
+</div>
+
+<script>
+
+/* LISTA DOS MANGÁS */
+
+const mangas = {
+
+    naruto: [
+
+        {
+            nome: "Capítulo 1",
+            pdf: "mangaonepiececolorido01.pdf"
+        },
+
+        {
+            nome: "Capítulo 2",
+            pdf: "pdfs/naruto-cap2.pdf"
+        },
+
+        {
+            nome: "Capítulo 3",
+            pdf: "pdfs/naruto-cap3.pdf"
+        }
+
+    ],
+
+    onepiece: [
+
+        {
+            nome: "Capítulo 1",
+            pdf: "pdfs/onepiece-cap1.pdf"
+        },
+
+        {
+            nome: "Capítulo 2",
+            pdf: "pdfs/onepiece-cap2.pdf"
+        }
+
+    ]
+
+};
+
+/* ABRIR LISTA */
+
+function abrirCapitulos(manga){
+
+    const modal =
+    document.getElementById("chaptersModal");
+
+    const lista =
+    document.getElementById("chaptersList");
+
+    lista.innerHTML = "";
+
+    mangas[manga].forEach(cap => {
+
+        lista.innerHTML += `
+
+        <button class="chapter-btn"
+        onclick="abrirPDF('${cap.pdf}')">
+
+        ${cap.nome}
+
+        </button>
+
+        `;
+
+    });
+
+    modal.style.display = "block";
+
+}
+
+/* FECHAR LISTA */
+
+function fecharCapitulos(){
+
+    document.getElementById(
+    "chaptersModal").style.display = "none";
+
+}
+
+/* ABRIR PDF */
+
+function abrirPDF(pdf){
+
+    document.getElementById(
+    "pdfViewerModal").style.display = "block";
+
+    document.getElementById(
+    "pdfFrame").src = pdf;
+
+}
+
+/* FECHAR PDF */
+
+function fecharPDF(){
+
+    document.getElementById(
+    "pdfViewerModal").style.display = "none";
+
+    document.getElementById(
+    "pdfFrame").src = "";
+
+}
+
+</script>
+
+</body>
+</html>
